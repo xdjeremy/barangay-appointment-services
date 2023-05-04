@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Home = () => {
-    return (
-        <div className={"bg-white min-h-screen flex flex-col items-center justify-center"}>
-            <div className={"text-center font-bold text-5xl text-black pb-28 drop-shadow-2xl"}>
-                B.A.S
-            </div>
-            <div className={" bg-[#A2BD96] rounded-xl flex flex-row px-44 py-56 gap-4"}>
-                <Link href={"register"} className={"text-black text-2xl font-semibold pt-2"}>
-                    REGISTER
-                </Link>
-                <Link href={"register"} className={"text-[#A2BD96] bg-[#1b360f] text-2xl font-semibold px-8 py-2 rounded-md"}>
-                    LOGIN
-                </Link>
+  const router = useRouter();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    if (user.success) {
+      router.push("/news").then(() => {});
+    }
+  });
 
-            </div>
-
-        </div>
-    );
+  return (
+    <div
+      className={
+        "flex min-h-screen flex-col items-center justify-center bg-white"
+      }
+    >
+      <div
+        className={
+          "pb-28 text-center text-5xl font-bold text-black drop-shadow-2xl"
+        }
+      >
+        B.A.S
+      </div>
+      <div
+        className={" flex flex-row gap-4 rounded-xl bg-[#A2BD96] px-44 py-56"}
+      >
+        <Link
+          href={"register"}
+          className={"pt-2 text-2xl font-semibold text-black"}
+        >
+          REGISTER
+        </Link>
+        <Link
+          href={"register"}
+          className={
+            "rounded-md bg-[#1b360f] px-8 py-2 text-2xl font-semibold text-[#A2BD96]"
+          }
+        >
+          LOGIN
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
