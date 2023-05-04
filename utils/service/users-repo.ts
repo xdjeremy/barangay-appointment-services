@@ -34,14 +34,29 @@ const authenticate = async ({
 };
 
 const create = async (params: {
+    name: string;
     username: string;
-    password: string;
     email: string;
+    password: string;
+    confirmPassword: string;
 }) => {
     // validate
     if (await User.findOne({username: params.username})) {
-        throw 'Username "' + params.username + '" is already taken';
+        throw {
+            success: false,
+            message: 'Username "' + params.username + '" is already taken'
+        }
     }
+
+    // check if password is same as confirm password
+    if (params.password !== params.confirmPassword) {
+        throw {
+            success: false,
+            message: 'Password and confirm password does not match'
+        };
+    }
+
+    console.log(params);
 
     const user = new User(params);
 

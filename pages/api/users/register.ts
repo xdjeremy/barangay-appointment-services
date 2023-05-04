@@ -4,12 +4,20 @@ import {apiHandler} from "@/utils/api";
 import {dbConnect} from "@/utils";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    await dbConnect();
+    try {
 
-    await usersRepo.create(req.body);
-    return res.status(200).json({
-        success: true,
-    });
+        await dbConnect();
+
+        await usersRepo.create(req.body);
+        return res.status(200).json({
+            success: true,
+        });
+    } catch (err: any) {
+        return res.status(400).json({
+            success: false,
+            message: err.message,
+        });
+    }
 };
 
 export default apiHandler({post: handler});
