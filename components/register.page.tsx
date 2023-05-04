@@ -1,14 +1,14 @@
-import React, {FC} from 'react';
-import {SubmitHandler, useForm} from "react-hook-form";
+import React, { FC } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 interface Inputs {
-    name: string,
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 const RegisterPage: FC = () => {
@@ -65,7 +65,7 @@ const RegisterPage: FC = () => {
                     <input
                         {...register("name", {required: true})}
                         type="text"
-                        className="h-12 border border-slate-300 bg-gray-200 px-5 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
+                        className="h-12 border text-black border-slate-300 bg-gray-200 px-5 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
                         placeholder="Enter your full name..."
                     />
                     <div className={"pt-3"}>
@@ -81,7 +81,7 @@ const RegisterPage: FC = () => {
                     <input
                         {...register("username", {required: true})}
                         type="text"
-                        className="h-12 border border-slate-300 bg-gray-200 px-5 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
+                        className="h-12 border text-black border-slate-300 bg-gray-200 px-5 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
                         placeholder="Enter your username..."
                     />
                     <div className={"pt-3"}>
@@ -109,7 +109,7 @@ const RegisterPage: FC = () => {
                     <input
                         {...register("password", {required: true})}
                         type="password"
-                        className="h-12 border border-slate-300 bg-gray-200 px-10 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
+                        className="h-12 border text-black border-slate-300 bg-gray-200 px-10 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
                         placeholder="Enter your password..."
                     />
                     <div className={"pt-3"}>
@@ -123,7 +123,7 @@ const RegisterPage: FC = () => {
                     <input
                         {...register("confirmPassword", {required: true})}
                         type="password"
-                        className="h-12 border border-slate-300 bg-gray-200 px-10 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
+                        className="h-12 border text-black border-slate-300 bg-gray-200 px-10 py-4 placeholder:text-[#9E9E9E] pt-3 w-full mx-auto"
                         placeholder="Enter your password again..."
                     />
                     <div className={"pt-3"}>
