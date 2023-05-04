@@ -38,8 +38,8 @@ const NavItem = ({title}: { title: string }) => {
 }
 const Layout: FC<Props> = ({children}) => {
     return (
-        <div className={"bg-white flex flex-row min-h-screen"}>
-            <nav className={"flex flex-col bg-[#A2BD96] justify-between w-96"}>
+        <div className={"bg-white flex flex-row min-h-screen w-full"}>
+            <nav className={"flex flex-col bg-[#A2BD96] justify-between w-[480px]"}>
                 <div className={'flex flex-col'}>
                     <div className={"pt-6 pb-20 text-center font-bold text-5xl text-black drop-shadow-2xl"}>
                         B.A.S
@@ -74,7 +74,9 @@ const Layout: FC<Props> = ({children}) => {
                     </button>
                 </div>
             </nav>
-            {children}
+            <div className={"w-full"}>
+                {children}
+            </div>
         </div>
     );
 };

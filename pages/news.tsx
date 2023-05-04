@@ -5,7 +5,7 @@ import NewsPage from "@/components/news.page";
 const News = () => {
     return (
         <Layout>
-            <NewsPage />
+            <NewsPage/>
         </Layout>
     );
 };
