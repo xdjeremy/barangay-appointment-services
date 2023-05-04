@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/utils";
-import { Ticket } from "@/models";
+import { Archive } from "@/models";
 import { apiHandler } from "@/utils/api";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,13 +9,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = req.body;
 
-    const ticket = new Ticket({
+    const archive = new Archive({
       email: body.email,
-      subject: body.subject,
-      message: body.message,
+      document: body.document,
     });
 
-    await ticket.save();
+    await archive.save();
 
     return res.status(200).json({
       success: true,
