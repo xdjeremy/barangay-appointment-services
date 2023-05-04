@@ -58,7 +58,7 @@ const ArchivePage: FC = () => {
           {...register("document", {
             required: true,
           })}
-          className={"h-10 w-full bg-white px-3"}
+          className={"h-10 w-full bg-white px-3 text-black"}
         >
           <option value="barangay_clearance">Barangay Clearance</option>
           <option value="police_clearance">Police Clearance</option>
@@ -69,7 +69,7 @@ const ArchivePage: FC = () => {
             required: true,
           })}
           type={"text"}
-          className={"h-10 w-full px-3"}
+          className={"h-10 w-full px-3 text-black"}
           placeholder={"type email here..."}
         />
         <button

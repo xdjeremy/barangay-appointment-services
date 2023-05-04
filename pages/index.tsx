@@ -34,7 +34,7 @@ const Home = () => {
           REGISTER
         </Link>
         <Link
-          href={"register"}
+          href={"login"}
           className={
             "rounded-md bg-[#1b360f] px-8 py-2 text-2xl font-semibold text-[#A2BD96]"
           }
