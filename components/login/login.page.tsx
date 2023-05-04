@@ -35,10 +35,10 @@ const LoginPage: FC = () => {
 
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
             userSubject.next(data);
-            localStorage.setItem('user', JSON.stringify(data.token));
+            localStorage.setItem('user', JSON.stringify(data));
 
             // redirect to home page
-            await router.push('/');
+            await router.push('/news');
             toast.success('Login successful');
         } catch (err: any) {
             console.log(err);

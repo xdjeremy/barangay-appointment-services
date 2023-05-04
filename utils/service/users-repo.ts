@@ -69,4 +69,19 @@ const create = async (params: {
     await user.save();
 };
 
-export const usersRepo = {authenticate, create};
+const getUserById = async (id: string) => {
+    if (!id) {
+        throw new Error('User not found');
+    }
+
+    const user = await User.findOne({
+        id
+    })
+
+    return {
+        success: true,
+        data: user
+    }
+}
+
+export const usersRepo = {authenticate, create, getUserById};
