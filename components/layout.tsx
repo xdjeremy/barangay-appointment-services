@@ -1,5 +1,7 @@
 import React, {FC, ReactNode} from 'react';
 import {XMarkIcon} from "@heroicons/react/24/solid";
+import pic from "@/assets/images/kineme.jpg";
+import Image from "next/image";
 
 
 interface Props {
@@ -68,7 +70,8 @@ const Layout: FC<Props> = ({children}) => {
                         </div>
                         <div>
                             <div className={"bg-black rounded-full w-10 h-10"}>
-
+                                <Image src={pic} alt={'profile'} width={160} height={160}
+                                       className={"rounded-full w-10 h-10 overflow-hidden"}/>
                             </div>
                         </div>
                     </button>
