@@ -1,7 +1,23 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import pic from "../assets/images/kineme.jpg"
 import Image from "next/image";
+
 const ProfilePage: FC = () => {
+    const [userData, setUserData] = useState<any>({
+        username: '',
+        email: '',
+    });
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user') || '');
+        setUserData({
+            username: user.username,
+            email: user.email,
+        });
+        console.log(user)
+
+    }, [])
+
     return (
         <div>
             <h1 className={'text-5xl text-black font-bold text-right px-4 py-3.5 '}>
@@ -12,10 +28,10 @@ const ProfilePage: FC = () => {
                     <Image src={pic} alt={'profile'} width={160} height={160}
                            className={"rounded-full w-40 h-40 overflow-hidden"}/>
                     <div className={"text-5xl text-black pt-8"}>
-                        JOHN A. DOE
+                        {userData.username}
                     </div>
                     <div className={"text-3xl text-black pt-8 "}>
-                        1260 Remembrance Road, Montreal, QC H3H 1A
+                        {userData.email}
                     </div>
                 </div>
             </div>

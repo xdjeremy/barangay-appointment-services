@@ -10,4 +10,14 @@ const Profile = () => {
     );
 };
 
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//     try {
+//         const user = await fetch(`/api/users/${ctx.}`)
+//     } catch (err: any) {
+//         return {
+//             props: {}
+//         }
+//     }
+// }
+
 export default Profile;
