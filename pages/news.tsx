@@ -4,7 +4,7 @@ import NewsPage from "@/components/news.page";
 
 const News = () => {
     return (
-        <Layout>
+        <Layout activePage={'News'}>
             <NewsPage/>
         </Layout>
     );

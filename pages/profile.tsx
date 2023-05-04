@@ -4,7 +4,7 @@ import ProfilePage from "@/components/profile.page";
 
 const Profile = () => {
     return (
-        <Layout>
+        <Layout activePage={'Profile'}>
             <ProfilePage/>
         </Layout>
     );
