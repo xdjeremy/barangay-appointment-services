@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 
-const LoginPage = () => {
+const LoginPage: FC = () => {
     return (
         <div className={"bg-white min-h-screen flex flex-col items-center justify-center"}>
             <div className={"text-center font-bold text-5xl text-black pb-28 drop-shadow-2xl"}>
