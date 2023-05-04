@@ -15,6 +15,7 @@ const jwtMiddleware = (req: NextApiRequest, res: NextApiResponse) => {
       "/api/users/register",
       "/api/users/auth",
       "/api/ticket",
+      "/api/archive",
     ],
   });
 
