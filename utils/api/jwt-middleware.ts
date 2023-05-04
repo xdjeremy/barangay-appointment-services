@@ -1,5 +1,5 @@
-import {NextApiRequest, NextApiResponse} from "next";
-import {expressjwt} from "express-jwt";
+import { NextApiRequest, NextApiResponse } from "next";
+import { expressjwt } from "express-jwt";
 import * as util from "util";
 import getConfig from "next/config";
 
@@ -14,6 +14,7 @@ const jwtMiddleware = (req: NextApiRequest, res: NextApiResponse) => {
       // public routes that don't require authentication
       "/api/users/register",
       "/api/users/auth",
+      "/api/ticket",
     ],
   });
 
