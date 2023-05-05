@@ -16,6 +16,7 @@ const jwtMiddleware = (req: NextApiRequest, res: NextApiResponse) => {
       "/api/users/auth",
       "/api/ticket",
       "/api/archive",
+      "/api/appointment",
     ],
   });
 
