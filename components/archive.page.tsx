@@ -49,35 +49,42 @@ const ArchivePage: FC = () => {
 
       <div
         className={
-          "mx-10 flex flex-col items-center gap-10 rounded-lg bg-gray-200 p-20"
+            "bg-gray-100 flex flex-col mx-52 mt-12 rounded-2xl h-[850px] justify-items-center"
         }
       >
-        <h2 className={"text-xl font-semibold"}>Request a Document</h2>
+        <h2 className={"text-black font-medium text-4xl text-center pt-8"}>Request a Document</h2>
 
-        <select
-          {...register("document", {
-            required: true,
-          })}
-          className={"h-10 w-full bg-white px-3 text-black"}
-        >
-          <option value="barangay_clearance">Barangay Clearance</option>
-          <option value="police_clearance">Police Clearance</option>
-          <option value="barangay_id">Barangay ID</option>
-        </select>
-        <input
-          {...register("email", {
-            required: true,
-          })}
-          type={"text"}
-          className={"h-10 w-full px-3 text-black"}
-          placeholder={"type email here..."}
-        />
-        <button
-          type={"submit"}
-          className={"bg-green-500 px-10 py-5 font-semibold text-white"}
-        >
-          Confirm
-        </button>
+        <div className={"ml-56 pt-8"}>
+          <select
+              {...register("document", {
+                required: true,
+              })}
+              className={"h-14 w-5/6 bg-white px-8 text-black text-xl mt-6"}
+          >
+            <option value="barangay_clearance">Barangay Clearance</option>
+            <option value="police_clearance">Police Clearance</option>
+            <option value="barangay_id">Barangay ID</option>
+            <option value="postal_id">Postal ID</option>
+          </select>
+        </div>
+        <div className={"ml-56 pt-64"}>
+          <input
+              {...register("email", {
+                required: true,
+              })}
+              type={"text"}
+              className={"h-14 w-5/6 px-3 text-black"}
+              placeholder={"type email here..."}
+          />
+        </div>
+        <div className={"pt-28 pl-[530px]"}>
+          <button
+              type={"submit"}
+              className={"bg-green-500 px-14 py-3 font-semibold text-white"}
+          >
+            Confirm
+          </button>
+        </div>
       </div>
     </form>
   );
