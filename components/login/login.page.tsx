@@ -1,12 +1,12 @@
-import React, {FC} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
+import React, { FC } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import {BehaviorSubject} from "rxjs";
-import {useRouter} from "next/router";
+import { BehaviorSubject } from "rxjs";
+import { useRouter } from "next/router";
 
 interface Inputs {
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 const LoginPage: FC = () => {
@@ -73,13 +73,13 @@ const LoginPage: FC = () => {
                 <input
                     {...register("username", {required: true})}
                     type="text"
-                    className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 placeholder:text-[#9E9E9E]"
+                    className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 text-black placeholder:text-[#9E9E9E]"
                     placeholder="Username or Email Address"
                 />
                 <input
                     {...register("password", {required: true})}
                     type="password"
-                    className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 placeholder:text-[#9E9E9E]"
+                    className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 text-black placeholder:text-[#9E9E9E]"
                     placeholder="Password"
                 />
                 <span></span>

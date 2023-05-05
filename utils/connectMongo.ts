@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-// const MONGODB_URI = process.env.MONGO_URI as string
-const MONGODB_URI = 'mongodb+srv://franjeremy:WHIoGWVYxzaZF1jR@barangay-appointment-se.vecbiix.mongodb.net/?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGO_URI as string;
+// const MONGODB_URI = 'mongodb+srv://franjeremy:WHIoGWVYxzaZF1jR@barangay-appointment-se.vecbiix.mongodb.net/?retryWrites=true&w=majority';
 
 if (!MONGODB_URI) {
     throw new Error(

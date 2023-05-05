@@ -67,7 +67,7 @@ const TicketPage: FC = () => {
             required: true,
           })}
           type={"text"}
-          className={"h-10 w-full px-3"}
+          className={"h-10 w-full px-3 text-black"}
           placeholder={"type email here..."}
         />
         <input
@@ -75,7 +75,7 @@ const TicketPage: FC = () => {
             required: true,
           })}
           type={"text"}
-          className={"h-10 w-full px-3"}
+          className={"h-10 w-full px-3 text-black"}
           placeholder={"[Type Subject]"}
         />
         <textarea
@@ -83,7 +83,7 @@ const TicketPage: FC = () => {
             required: true,
           })}
           rows={10}
-          className={"w-full"}
+          className={"w-full text-black"}
         />
 
         <button
