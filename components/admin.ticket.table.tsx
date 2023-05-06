@@ -40,7 +40,7 @@ const AdminTicketTable = () => {
         <tbody>
           {data &&
             data.data.map((items: any) => (
-              <tr>
+              <tr key={items._id}>
                 <td className={"border-2 border-black text-center"}>
                   {items.email}
                 </td>
