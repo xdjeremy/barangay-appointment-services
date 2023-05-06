@@ -1,24 +1,24 @@
-import React, {FC, ReactNode} from 'react';
+import React, { FC, ReactNode } from "react";
 import Link from "next/link";
-import {classNames} from "@/utils";
-import {XMarkIcon} from "@heroicons/react/24/solid";
+import { classNames } from "@/utils";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import pic from "@/assets/images/kineme.jpg";
 import Image from "next/image";
 
 interface Props {
-    children: ReactNode
-    activePage: string
+  children: ReactNode;
+  activePage: string;
 }
 
 const navLinks = [{
     title: 'Manage Archive',
-    href: '/manage archive'
+    href: '/admin-archive'
 }, {
     title: 'View Appointments',
-    href: '/view appointments'
+    href: '/admin-appointment'
 }, {
     title: 'View Tickets',
-    href: '/view tickets'
+    href: '/view-tickets'
 }]
 
 const NavItems = ({title, href, active}: { title: string, href: string, active: boolean }) => {
