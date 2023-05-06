@@ -1,12 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminTableItems from "@/components/admin.table.items";
 
-const AdminTable: FC = () => {
+const AppointmentTable = () => {
   const [data, setData] = useState<any>();
 
   useEffect(() => {
     const getTable = async () => {
-      const res = await fetch("/api/archive", {
+      const res = await fetch("/api/appointment", {
         method: "get",
       });
 
@@ -33,10 +33,14 @@ const AdminTable: FC = () => {
         <thead>
           <tr>
             <th className={"border-2 border-black text-center"}>
-              Requested Document
+              Barangay Official Appointment
             </th>
-            <th className={"border-2 border-black text-center"}> Name</th>
+            <th className={"border-2 border-black text-center"}>
+              {" "}
+              Citizen Email
+            </th>
             <th className={"border-2 border-black text-center"}> Validate</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +48,7 @@ const AdminTable: FC = () => {
             data.data.map((items: any) => (
               <AdminTableItems
                 key={items._id}
-                docs={items.document}
+                docs={items.appointment}
                 email={items.email}
               />
             ))}
@@ -54,4 +58,4 @@ const AdminTable: FC = () => {
   );
 };
 
-export default AdminTable;
+export default AppointmentTable;
