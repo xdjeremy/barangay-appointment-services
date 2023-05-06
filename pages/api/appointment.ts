@@ -27,4 +27,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default apiHandler({ post: handler })
+const getAllAppointment = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        await dbConnect();
+
+        const appointment = await Appointment.find().exec();
+
+        console.log(appointment);
+
+        return res.status(200).json({
+            success: true,
+            data: appointment
+        })
+    } catch (err: any) {
+        return res.status(400).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+export default apiHandler({post: handler, get: getAllAppointment})

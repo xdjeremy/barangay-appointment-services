@@ -27,4 +27,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default apiHandler({ post: handler });
+const getAllArchive = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    await dbConnect();
+
+    const archive = await Archive.find().exec();
+
+    return res.status(200).json({
+      success: true,
+      data: archive,
+    });
+  } catch (err: any) {
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+export default apiHandler({ post: handler, get: getAllArchive });
