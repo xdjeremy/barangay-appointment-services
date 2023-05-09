@@ -18,7 +18,7 @@ const navLinks = [{
     href: '/admin-appointment'
 }, {
     title: 'View Tickets',
-    href: '/view-tickets'
+    href: '/admin-ticket'
 }]
 
 const NavItems = ({title, href, active}: { title: string, href: string, active: boolean }) => {
