@@ -17,20 +17,15 @@ const DirectoryPage: FC = () => {
                 BARANGAY OFFICIALS
             </h1>
             <div className={'grid grid-cols-3 justify-items-center gap-3 pl-10 pr-4'}>
-            <DirectoryItems name={'Jose Marie Chan'} title={'Barangay Captain'} image={pic1}/>
-            <DirectoryItems name={'March Marcasig'} title={'Barangay Secretary'} image={pic2}/>
-            <DirectoryItems name={'Anton Dian'} title={'Barangay Treasurer'} image={pic3}/>
-            <DirectoryItems name={'Joey Nyembre'} title={'Barangay Councilor'} image={pic4}/>
-            <DirectoryItems name={'Ana Uary'} title={'Barangay Councilor'} image={pic7}/>
-            <DirectoryItems name={'June Makitid'} title={'Barangay Captain'} image={pic8}/>
-            </div>
-            <h1 className={'text-5xl text-black font-bold text-right px-4 pt-40 pb-14'}>
-                BARANGAY STAFFS
-            </h1>
-            <div className={'grid grid-cols-3 justify-items-center gap-3 pl-12 pr-4'}>
-                <DirectoryItems name={'Allan Miyerkules'} title={'Desk Staff'} image={pic5}/>
-                <DirectoryItems name={'Dough Dimmadome'} title={'Janitor'} image={pic6}/>
-                <DirectoryItems name={'Rosie Rose Rune'} title={'Office'} image={pic9}/>
+            <DirectoryItems name={'Kap. Ruth Ancheta'} title={'Barangay Captain'} image={pic1}/>
+            <DirectoryItems name={'Maricel Lejas'} title={'Barangay Secretary'} image={pic2}/>
+            <DirectoryItems name={'Melvin Torrente'} title={'Kagawad'} image={pic3}/>
+            <DirectoryItems name={'Romeo David'} title={'Kagawad'} image={pic4}/>
+            <DirectoryItems name={'Omak David'} title={'Kagawad'} image={pic7}/>
+            <DirectoryItems name={'Eddie Arinal'} title={'Kagawad'} image={pic8}/>
+            <DirectoryItems name={'Allan Miyerkules'} title={'Desk Staff'} image={pic5}/>
+            <DirectoryItems name={'Dough Dimmadome'} title={'Janitor'} image={pic6}/>
+            <DirectoryItems name={'Rosie Rose Rune'} title={'Office'} image={pic9}/>
             </div>
         </div>
 
