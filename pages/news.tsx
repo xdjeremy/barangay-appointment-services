@@ -14,7 +14,7 @@ const News = () => {
 
   return (
     <Layout activePage={"News"}>
-      <NewsPagePage />
+      <NewsPagePage/>
     </Layout>
   );
 };
