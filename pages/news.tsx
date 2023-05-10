@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import Layout from "@/components/layout";
-import NewsPage from "@/components/news.page";
+import NewsPagePage from "@/components/news.page.page";
 import { useRouter } from "next/router";
 
 const News = () => {
   const router = useRouter();
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = JS.parse(localStorage.getItem("user") || "{}");
     if (!user.success) {
       router.push("/login").then(() => {});
     }
@@ -14,7 +14,7 @@ const News = () => {
 
   return (
     <Layout activePage={"News"}>
-      <NewsPage />
+      <NewsPagePage />
     </Layout>
   );
 };
