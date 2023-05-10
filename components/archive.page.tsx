@@ -1,40 +1,43 @@
 import React, { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { pocketBase } from "@/utils";
+import {
+  DocumentRequestsDocumentTypeOptions,
+  DocumentRequestsRecord,
+} from "@/types";
+import { useEffectOnce } from "usehooks-ts";
 
 interface Input {
   email: string;
-  document: string;
+  document: DocumentRequestsDocumentTypeOptions;
 }
 
 const ArchivePage: FC = () => {
-  const { register, handleSubmit } = useForm<Input>();
+  const { register, handleSubmit, setValue } = useForm<Input>();
 
+  useEffectOnce(() => {
+    setValue("email", pocketBase.authStore.model?.email);
+  });
   const handleArchiveSubmit: SubmitHandler<Input> = async ({
     email,
     document,
   }) => {
     try {
-      const res = await fetch("/api/archive", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          document,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        return toast.error(data.message);
+      if (!pocketBase.authStore.model) {
+        return toast.error("You must be logged in to request a document");
       }
+
+      const data: DocumentRequestsRecord = {
+        user: pocketBase.authStore.model?.id,
+        document_type: document,
+        email,
+      };
+      await pocketBase.collection("document_requests").create(data);
 
       toast.success("Document requested successfully!");
     } catch (err: any) {
-      toast.error(err.message);
+      toast.error(err.data.message);
     }
   };
   return (
@@ -49,38 +52,53 @@ const ArchivePage: FC = () => {
 
       <div
         className={
-            "bg-gray-100 flex flex-col mx-52 mt-12 rounded-2xl h-[850px] justify-items-center"
+          "mx-52 mt-12 flex h-[850px] flex-col justify-items-center rounded-2xl bg-gray-100"
         }
       >
-        <h2 className={"text-black font-medium text-4xl text-center pt-8"}>Request a Document</h2>
+        <h2 className={"pt-8 text-center text-4xl font-medium text-black"}>
+          Request a Document
+        </h2>
 
         <div className={"ml-56 pt-8"}>
           <select
-              {...register("document", {
-                required: true,
-              })}
-              className={"h-14 w-5/6 bg-white px-8 text-black text-xl mt-6"}
+            {...register("document", {
+              required: true,
+            })}
+            className={"mt-6 h-14 w-5/6 bg-white px-8 text-xl text-black"}
           >
-            <option value="barangay_clearance">Barangay Clearance</option>
-            <option value="police_clearance">Police Clearance</option>
-            <option value="barangay_id">Barangay ID</option>
-            <option value="postal_id">Postal ID</option>
+            <option
+              value={DocumentRequestsDocumentTypeOptions.barangay_clearance}
+            >
+              Barangay Clearance
+            </option>
+            <option
+              value={DocumentRequestsDocumentTypeOptions.police_clearance}
+            >
+              Police Clearance
+            </option>
+            <option value={DocumentRequestsDocumentTypeOptions.barangay_id}>
+              Barangay ID
+            </option>
+            <option value={DocumentRequestsDocumentTypeOptions.potsal_id}>
+              Postal ID
+            </option>
           </select>
         </div>
         <div className={"ml-56 pt-64"}>
           <input
-              {...register("email", {
-                required: true,
-              })}
-              type={"text"}
-              className={"h-14 w-5/6 px-3 text-black"}
-              placeholder={"type email here..."}
+            readOnly={true}
+            {...register("email", {
+              required: true,
+            })}
+            type={"text"}
+            className={"h-14 w-5/6 px-3 text-black"}
+            placeholder={"type email here..."}
           />
         </div>
-        <div className={"pt-28 pl-[530px]"}>
+        <div className={"pl-[530px] pt-28"}>
           <button
-              type={"submit"}
-              className={"bg-green-500 px-14 py-3 font-semibold text-white"}
+            type={"submit"}
+            className={"bg-green-500 px-14 py-3 font-semibold text-white"}
           >
             Confirm
           </button>
