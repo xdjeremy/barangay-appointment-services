@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@/components/layout";
-import NewsPage from "@/components/news.page";
+import NewsPagePage from "@/components/news.page.page";
 import { GetServerSideProps, NextPage } from "next";
 import { initPocketBase } from "@/utils";
 import { useUser } from "@/context";
@@ -19,7 +19,7 @@ const News: NextPage<Props> = ({ user }) => {
 
   return (
     <Layout activePage={"News"}>
-      <NewsPage />
+      <NewsPagePage/>
     </Layout>
   );
 };
