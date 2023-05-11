@@ -1,22 +1,27 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import AdminTableItems from "@/components/admin.table.items";
+import useSWR from "swr";
+import { pocketBase } from "@/utils";
+import { DocumentRequestsResponse, UsersResponse } from "@/types";
 
-const AdminTable: FC = () => {
-  const [data, setData] = useState<any>();
-
-  useEffect(() => {
-    const getTable = async () => {
-      const res = await fetch("/api/archive", {
-        method: "get",
+type TExpand = {
+  user: UsersResponse;
+};
+const fetcher = async (query: any) => {
+  const [document_requests] = query;
+  try {
+    return pocketBase
+      .collection(document_requests)
+      .getList<DocumentRequestsResponse<TExpand>>(1, 30, {
+        sort: "-created",
+        expand: "user",
       });
-
-      const tableData = await res.json();
-
-      setData(tableData);
-    };
-
-    getTable().then(() => {});
-  });
+  } catch (err: any) {
+    throw new Error(err.data.message);
+  }
+};
+const AdminTable: FC = () => {
+  const { data, error } = useSWR(["document_requests"], fetcher);
 
   return (
     <div>
@@ -42,12 +47,9 @@ const AdminTable: FC = () => {
         </thead>
         <tbody>
           {data &&
-            data.data.map((items: any) => (
-              <AdminTableItems
-                key={items._id}
-                docs={items.document}
-                email={items.email}
-              />
+            !error &&
+            data.items.map((items) => (
+              <AdminTableItems key={items.id} data={items} />
             ))}
         </tbody>
       </table>
