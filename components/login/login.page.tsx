@@ -60,13 +60,13 @@ const LoginPage: FC = () => {
         <input
           {...register("username", { required: true })}
           type="text"
-          className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 text-black placeholder:text-[#9E9E9E]"
+          className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-2 py-2 text-black placeholder:text-[#9E9E9E]"
           placeholder="Username or Email Address"
         />
         <input
           {...register("password", { required: true })}
           type="password"
-          className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-10 py-4 pt-7 text-black placeholder:text-[#9E9E9E]"
+          className="mx-auto h-12 w-full border border-[#C2C2C2] bg-white px-2 py-2 text-black placeholder:text-[#9E9E9E]"
           placeholder="Password"
         />
         <span></span>
