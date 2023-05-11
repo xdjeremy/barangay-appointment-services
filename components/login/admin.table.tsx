@@ -14,6 +14,7 @@ const fetcher = async (query: any) => {
       .collection(document_requests)
       .getList<DocumentRequestsResponse<TExpand>>(1, 30, {
         sort: "-created",
+        filter: "active = true",
         expand: "user",
       });
   } catch (err: any) {

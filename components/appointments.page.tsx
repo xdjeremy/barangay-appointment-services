@@ -27,6 +27,7 @@ const AppointmentsPage: FC = () => {
         user: pocketBase.authStore.model?.id,
         appoint_type: appointment,
         appointment_date: new Date(date).toISOString(),
+        active: true,
       };
 
       await pocketBase.collection("appointments").create(data);

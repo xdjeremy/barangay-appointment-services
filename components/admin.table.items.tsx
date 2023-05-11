@@ -17,7 +17,9 @@ const AdminTableItems: FC<Props> = ({ data }) => {
 
   const deleteRequest = async () => {
     try {
-      await pocketBase.collection("document_requests").delete(data.id);
+      await pocketBase.collection("document_requests").update(data.id, {
+        active: false,
+      });
 
       toast.success("Request deleted successfully");
       setShowDelete(false);

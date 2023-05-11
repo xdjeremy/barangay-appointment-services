@@ -32,6 +32,7 @@ const ArchivePage: FC = () => {
         user: pocketBase.authStore.model?.id,
         document_type: document,
         email,
+        active: true,
       };
       await pocketBase.collection("document_requests").create(data);
 
