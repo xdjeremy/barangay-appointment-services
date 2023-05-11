@@ -1,6 +1,9 @@
 import React, { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { TicketsRecord } from "@/types";
+import { pocketBase } from "@/utils";
+import { useEffectOnce } from "usehooks-ts";
 
 interface Input {
   email: string;
@@ -9,35 +12,36 @@ interface Input {
 }
 
 const TicketPage: FC = () => {
-  const { register, handleSubmit, resetField } = useForm<Input>();
+  const { register, handleSubmit, resetField, setValue } = useForm<Input>();
 
+  useEffectOnce(() => {
+    if (!pocketBase.authStore.model) return;
+    setValue("email", pocketBase.authStore.model.email);
+  });
   const handleTicketSubmit: SubmitHandler<Input> = async ({
     email,
     subject,
     message,
   }) => {
     try {
-      const res = await fetch("/api/ticket", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          subject,
-          message,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        return toast.error(data.message);
+      // if user is not logged in
+      if (!pocketBase.authStore.model) {
+        toast.error("You must be logged in to submit a ticket.");
+        return;
       }
+
+      const data: TicketsRecord = {
+        email,
+        subject,
+        body: message,
+        user: pocketBase.authStore.model?.id,
+        active: true,
+      };
+
+      await pocketBase.collection("tickets").create(data);
 
       toast.success("Ticket submitted successfully!");
       // reset the form
-      resetField("email");
       resetField("subject");
       resetField("message");
     } catch (err: any) {
@@ -60,12 +64,15 @@ const TicketPage: FC = () => {
           "mx-10 flex flex-col items-center gap-10 rounded-lg bg-gray-200 p-20"
         }
       >
-        <h2 className={"text-xl font-semibold"}>Feedback / Complaint</h2>
+        <h2 className={"text-xl font-semibold text-black"}>
+          Feedback / Complaint
+        </h2>
 
         <input
           {...register("email", {
             required: true,
           })}
+          readOnly={true}
           type={"text"}
           className={"h-10 w-full px-3 text-black"}
           placeholder={"type email here..."}

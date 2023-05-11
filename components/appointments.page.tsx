@@ -1,40 +1,41 @@
 import React, { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { pocketBase } from "@/utils";
+import { AppointmentsAppointTypeOptions, AppointmentsRecord } from "@/types";
 
 interface Input {
-  email: string;
-  appointment: string;
+  appointment: AppointmentsAppointTypeOptions;
+  date: string;
 }
 
 const AppointmentsPage: FC = () => {
   const { register, handleSubmit, resetField } = useForm<Input>();
 
   const onAppointmentSubmit: SubmitHandler<Input> = async ({
-    email,
+    date,
     appointment,
   }) => {
     try {
-      const res = await fetch("/api/appointment", {
-        method: "POST",
-        body: JSON.stringify({
-          email,
-          appointment,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-
-      if (!data.success) {
-        return toast.error(data.message);
+      // if user is not logged in
+      if (!pocketBase.authStore.model) {
+        toast.error("You must be logged in to request an appointment.");
+        return;
       }
+
+      const data: AppointmentsRecord = {
+        user: pocketBase.authStore.model?.id,
+        appoint_type: appointment,
+        appointment_date: new Date(date).toISOString(),
+        active: true,
+      };
+
+      await pocketBase.collection("appointments").create(data);
       toast.success("Appointment request sent!");
       resetField("appointment");
-      resetField("email");
+      resetField("date");
     } catch (err: any) {
-      toast.error(err.message);
+      toast.error(err.data.message);
     }
   };
   return (
@@ -63,21 +64,32 @@ const AppointmentsPage: FC = () => {
                 required: true,
               })}
             >
-              <option value="barangay_captain">Barangay Captain</option>
-              <option value="barangay_secretary">Barangay Secretary</option>
-              <option value="barangay_treasurer">Barangay Treasurer</option>
-              <option value="barangay_councilor">Barangay Councilor</option>
-              <option value="sk_chairman">SK Chairman</option>
+              <option value={AppointmentsAppointTypeOptions.barangay_captain}>
+                Barangay Captain
+              </option>
+              <option
+                value={AppointmentsAppointTypeOptions.barangay_secretatary}
+              >
+                Barangay Secretary
+              </option>
+              <option value={AppointmentsAppointTypeOptions.barangay_treasurer}>
+                Barangay Treasurer
+              </option>
+              <option value={AppointmentsAppointTypeOptions.barangay_councilor}>
+                Barangay Councilor
+              </option>
+              <option value={AppointmentsAppointTypeOptions.sk_chairman}>
+                SK Chairman
+              </option>
             </select>
           </div>
-          <div className={"ml-56 pt-64"}>
+          <div className={"ml-56 pt-14"}>
             <input
-              type={"text"}
-              {...register("email", {
+              className={"text-black- mt-6 h-14 w-5/6 bg-white px-8"}
+              type={"datetime-local"}
+              {...register("date", {
                 required: true,
               })}
-              className={"h-14 w-5/6 px-3 text-black"}
-              placeholder={"type email here..."}
             />
           </div>
           <div className={"pl-[530px] pt-28"}>

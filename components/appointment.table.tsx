@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
-import AdminTableItems from "@/components/admin.table.items";
+import React from "react";
+import useSWR from "swr";
+import { pocketBase } from "@/utils";
+import { AppointmentsResponse, UsersResponse } from "@/types";
+import AppointmentTableItems from "@/components/appointmenttable.items";
 
-const AppointmentTable = () => {
-  const [data, setData] = useState<any>();
-
-  useEffect(() => {
-    const getTable = async () => {
-      const res = await fetch("/api/appointment", {
-        method: "get",
+type TExpand = {
+  user: UsersResponse;
+};
+const fetcher = async (table: string) => {
+  try {
+    return await pocketBase
+      .collection(table)
+      .getList<AppointmentsResponse<TExpand>>(1, 30, {
+        sort: "-created",
+        filter: "active = true",
+        expand: "user",
       });
-
-      const tableData = await res.json();
-
-      setData(tableData);
-    };
-
-    getTable().then(() => {});
-  });
+  } catch (err: any) {
+    throw Error(err.data.message);
+  }
+};
+const AppointmentTable = () => {
+  const { data, error } = useSWR("appointments", fetcher);
 
   return (
     <div>
@@ -36,21 +41,17 @@ const AppointmentTable = () => {
               Barangay Official Appointment
             </th>
             <th className={"border-2 border-black text-center"}>
-              {" "}
-              Citizen Email
+              Citizen Name
             </th>
-            <th className={"border-2 border-black text-center"}> Validate</th>
-            <th></th>
+            <th className={"border-2 border-black text-center"}>Email</th>
+            <th className={"border-2 border-black text-center"}>Delete</th>
           </tr>
         </thead>
         <tbody>
           {data &&
-            data.data.map((items: any) => (
-              <AdminTableItems
-                key={items._id}
-                docs={items.appointment}
-                email={items.email}
-              />
+            !error &&
+            data.items.map((items: any) => (
+              <AppointmentTableItems data={items} key={items.id} />
             ))}
         </tbody>
       </table>
