@@ -35,6 +35,7 @@ const TicketPage: FC = () => {
         subject,
         body: message,
         user: pocketBase.authStore.model?.id,
+        active: true,
       };
 
       await pocketBase.collection("tickets").create(data);
