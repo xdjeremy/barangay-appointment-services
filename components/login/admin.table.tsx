@@ -35,8 +35,9 @@ const AdminTable: FC = () => {
             <th className={"border-2 border-black text-center"}>
               Requested Document
             </th>
-            <th className={"border-2 border-black text-center"}> Name</th>
-            <th className={"border-2 border-black text-center"}> Validate</th>
+            <th className={"border-2 border-black text-center"}>Name</th>
+            <th className={"border-2 border-black text-center"}>Email</th>
+            <th className={"border-2 border-black text-center"}>Validate</th>
           </tr>
         </thead>
         <tbody>
