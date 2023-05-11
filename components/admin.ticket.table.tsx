@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useSWR from "swr";
+import { pocketBase } from "@/utils";
+import { TicketsResponse } from "@/types";
+import AdminTicketTableItem from "@/components/admin.ticket.table-item";
 
+const fetcher = async (query: any) => {
+  const [table] = query;
+  try {
+    return pocketBase.collection(table).getList<TicketsResponse>(1, 30, {
+      sort: "-created",
+      filter: `active = true`,
+    });
+  } catch (err: any) {
+    throw new Error(err.data.message);
+  }
+};
 const AdminTicketTable = () => {
-  const [data, setData] = useState<any>();
-
-  useEffect(() => {
-    const getTable = async () => {
-      const res = await fetch("/api/ticket", {
-        method: "get",
-      });
-
-      const tableData = await res.json();
-
-      setData(tableData);
-    };
-
-    getTable().then(() => {});
-  });
+  const { data, error } = useSWR(["tickets"], fetcher);
+  console.log(data);
 
   return (
     <div>
@@ -39,21 +41,9 @@ const AdminTicketTable = () => {
         </thead>
         <tbody>
           {data &&
-            data.data.map((items: any) => (
-              <tr key={items._id}>
-                <td className={"border-2 border-black text-center"}>
-                  {items.email}
-                </td>
-                <td className={"border-2 border-black text-center"}>
-                  {items.subject}
-                </td>
-                <td className={"border-2 border-black text-center"}>
-                  {items.message}
-                </td>
-                <td className={"border-2 border-black text-center"}>
-                  <input type={"checkbox"} />
-                </td>
-              </tr>
+            !error &&
+            data.items.map((items) => (
+              <AdminTicketTableItem data={items} key={items.id} />
             ))}
         </tbody>
       </table>

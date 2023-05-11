@@ -56,6 +56,7 @@ export type DocumentRequestsRecord = {
 	document_type: DocumentRequestsDocumentTypeOptions
 	user: RecordIdString
 	email: string
+	active?: boolean
 }
 
 export type TicketsRecord = {
@@ -63,6 +64,7 @@ export type TicketsRecord = {
 	email: string
 	subject: string
 	body: string
+	active?: boolean
 }
 
 export enum UsersRoleOptions {
