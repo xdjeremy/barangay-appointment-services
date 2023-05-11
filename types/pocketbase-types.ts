@@ -44,6 +44,7 @@ export type AppointmentsRecord = {
 	user: RecordIdString
 	appoint_type?: AppointmentsAppointTypeOptions
 	appointment_date?: IsoDateString
+	active?: boolean
 }
 
 export enum DocumentRequestsDocumentTypeOptions {
