@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { pocketBase } from "@/utils";
 import { RegisterValidation } from "@/utils/validations";
+import { UsersRoleOptions } from "@/types";
 
 interface RegisterInputs {
   name: string;
@@ -47,6 +48,7 @@ const RegisterPage: FC = () => {
         password,
         passwordConfirm: confirmPassword,
         name,
+        role: UsersRoleOptions.user,
       });
 
       toast.success("Account created successfully");
@@ -116,7 +118,7 @@ const RegisterPage: FC = () => {
           <input
             {...register("email", { required: true })}
             type="email"
-            className="mx-auto h-12 w-full border border-slate-300 text-black bg-gray-200 px-10 py-4 pt-3 placeholder:text-[#9E9E9E]"
+            className="mx-auto h-12 w-full border border-slate-300 bg-gray-200 px-10 py-4 pt-3 text-black placeholder:text-[#9E9E9E]"
             placeholder="Enter your Email address..."
           />
           <div className={"pt-3"}>{errors.email?.message}</div>

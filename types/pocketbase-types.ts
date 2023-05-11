@@ -65,8 +65,13 @@ export type TicketsRecord = {
 	body: string
 }
 
+export enum UsersRoleOptions {
+	"user" = "user",
+	"admin" = "admin",
+}
 export type UsersRecord = {
 	name?: string
+	role: UsersRoleOptions
 }
 
 // Response types include system fields and match responses from the PocketBase API
