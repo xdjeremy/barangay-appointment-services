@@ -5,6 +5,7 @@
 export enum Collections {
 	Appointments = "appointments",
 	DocumentRequests = "document_requests",
+	Tickets = "tickets",
 	Users = "users",
 }
 
@@ -57,6 +58,13 @@ export type DocumentRequestsRecord = {
 	email: string
 }
 
+export type TicketsRecord = {
+	user: RecordIdString
+	email: string
+	subject: string
+	body: string
+}
+
 export type UsersRecord = {
 	name?: string
 }
@@ -64,6 +72,7 @@ export type UsersRecord = {
 // Response types include system fields and match responses from the PocketBase API
 export type AppointmentsResponse<Texpand = unknown> = Required<AppointmentsRecord> & BaseSystemFields<Texpand>
 export type DocumentRequestsResponse<Texpand = unknown> = Required<DocumentRequestsRecord> & BaseSystemFields<Texpand>
+export type TicketsResponse<Texpand = unknown> = Required<TicketsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse = Required<UsersRecord> & AuthSystemFields
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -71,11 +80,13 @@ export type UsersResponse = Required<UsersRecord> & AuthSystemFields
 export type CollectionRecords = {
 	appointments: AppointmentsRecord
 	document_requests: DocumentRequestsRecord
+	tickets: TicketsRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
 	appointments: AppointmentsResponse
 	document_requests: DocumentRequestsResponse
+	tickets: TicketsResponse
 	users: UsersResponse
 }
