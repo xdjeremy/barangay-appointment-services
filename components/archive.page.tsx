@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { pocketBase } from "@/utils";
@@ -7,6 +7,7 @@ import {
   DocumentRequestsRecord,
 } from "@/types";
 import { useEffectOnce } from "usehooks-ts";
+import Image from "next/image";
 
 interface Input {
   email: string;
@@ -14,7 +15,9 @@ interface Input {
 }
 
 const ArchivePage: FC = () => {
-  const { register, handleSubmit, setValue } = useForm<Input>();
+  const { register, handleSubmit, setValue, watch } =
+    useForm<Input>();
+  const [preview, setPreview] = useState<string>("/img11.png");
 
   useEffectOnce(() => {
     setValue("email", pocketBase.authStore.model?.email);
@@ -41,6 +44,28 @@ const ArchivePage: FC = () => {
       toast.error(err.data.message);
     }
   };
+
+  useEffect(() => {
+    const subscription = watch((value) => {
+      switch (value.document) {
+        case DocumentRequestsDocumentTypeOptions.barangay_id:
+          setPreview("/img12.jpg");
+          break;
+        case DocumentRequestsDocumentTypeOptions.police_clearance:
+          setPreview("/img13.jpg");
+          break;
+        case DocumentRequestsDocumentTypeOptions.barangay_clearance:
+          setPreview("/img11.png");
+          break;
+        case DocumentRequestsDocumentTypeOptions.potsal_id:
+          setPreview("/img15.png");
+          break;
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   return (
     <form onSubmit={handleSubmit(handleArchiveSubmit)}>
       <h1
@@ -53,57 +78,66 @@ const ArchivePage: FC = () => {
 
       <div
         className={
-          "mx-52 mt-12 flex h-[850px] flex-col justify-items-center rounded-2xl bg-gray-100"
+          "mx-52 mt-12 flex h-[850px] flex-row items-center rounded-2xl bg-gray-100"
         }
       >
-        <h2 className={"pt-8 text-center text-4xl font-medium text-black"}>
-          Request a Document
-        </h2>
+        <div className={"flex flex-col justify-center"}>
+          <h2 className={"pt-8 text-center text-4xl font-medium text-black"}>
+            Request a Document
+          </h2>
 
-        <div className={"ml-56 pt-8"}>
-          <select
-            {...register("document", {
-              required: true,
-            })}
-            className={"mt-6 h-14 w-5/6 bg-white px-8 text-xl text-black"}
-          >
-            <option
-              value={DocumentRequestsDocumentTypeOptions.barangay_clearance}
+          <div className={"ml-56 pt-8"}>
+            <select
+              {...register("document", {
+                required: true,
+              })}
+              className={"mt-6 h-14 w-5/6 bg-white px-8 text-xl text-black"}
             >
-              Barangay Clearance
-            </option>
-            <option
-              value={DocumentRequestsDocumentTypeOptions.police_clearance}
+              <option
+                value={DocumentRequestsDocumentTypeOptions.barangay_clearance}
+              >
+                Barangay Clearance
+              </option>
+              <option
+                value={DocumentRequestsDocumentTypeOptions.police_clearance}
+              >
+                Police Clearance
+              </option>
+              <option value={DocumentRequestsDocumentTypeOptions.barangay_id}>
+                Barangay ID
+              </option>
+              <option value={DocumentRequestsDocumentTypeOptions.potsal_id}>
+                Postal ID
+              </option>
+            </select>
+          </div>
+          <div className={"ml-56 pt-64"}>
+            <input
+              readOnly={true}
+              {...register("email", {
+                required: true,
+              })}
+              type={"text"}
+              className={"h-14 w-5/6 px-3 text-black"}
+              placeholder={"type email here..."}
+            />
+          </div>
+          <div className={"pl-[530px] pt-28"}>
+            <button
+              type={"submit"}
+              className={"bg-green-500 px-14 py-3 font-semibold text-white"}
             >
-              Police Clearance
-            </option>
-            <option value={DocumentRequestsDocumentTypeOptions.barangay_id}>
-              Barangay ID
-            </option>
-            <option value={DocumentRequestsDocumentTypeOptions.potsal_id}>
-              Postal ID
-            </option>
-          </select>
+              Confirm
+            </button>
+          </div>
         </div>
-        <div className={"ml-56 pt-64"}>
-          <input
-            readOnly={true}
-            {...register("email", {
-              required: true,
-            })}
-            type={"text"}
-            className={"h-14 w-5/6 px-3 text-black"}
-            placeholder={"type email here..."}
-          />
-        </div>
-        <div className={"pl-[530px] pt-28"}>
-          <button
-            type={"submit"}
-            className={"bg-green-500 px-14 py-3 font-semibold text-white"}
-          >
-            Confirm
-          </button>
-        </div>
+        <Image
+          src={preview}
+          className={""}
+          alt={"image"}
+          width={400}
+          height={400}
+        />
       </div>
     </form>
   );
