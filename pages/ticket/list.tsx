@@ -1,25 +1,24 @@
-import React from "react";
-import { GetServerSideProps, NextPage } from "next";
-import Layout from "@/components/layout";
-import TicketPage from "@/components/ticket.page";
+import React, { FC } from "react";
+import { GetServerSideProps } from "next";
 import { initPocketBase } from "@/utils";
 import { useUser } from "@/context";
 import { useEffectOnce } from "usehooks-ts";
+import Layout from "@/components/layout";
+import TicketListPage from "@/components/ticket.list.page";
 
 interface Props {
   user: string;
 }
 
-const Ticket: NextPage<Props> = ({ user }) => {
+const TicketList: FC<Props> = ({ user }) => {
   const { setUser } = useUser();
-
   useEffectOnce(() => {
     setUser(JSON.parse(user));
   });
 
   return (
-    <Layout activePage={"Submit a Ticket"}>
-      <TicketPage />
+    <Layout activePage={"Ticket List"}>
+      <TicketListPage />
     </Layout>
   );
 };
@@ -56,4 +55,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 };
 
-export default Ticket;
+export default TicketList;
