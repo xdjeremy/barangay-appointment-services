@@ -18,7 +18,9 @@ const AppointmentTableItems: FC<Props> = ({ data }) => {
 
   const deleteRequest = async () => {
     try {
-      await pocketBase.collection("appointments").delete(data.id);
+      await pocketBase.collection("appointments").update(data.id, {
+        active: false,
+      });
 
       toast.success("Request deleted successfully");
       setShowDelete(false);

@@ -24,6 +24,10 @@ const navLinks = [
     title: "View Tickets",
     href: "/admin-ticket",
   },
+  {
+    title: "Admin Deleted",
+    href: "/admin-deleted",
+  }
 ];
 
 const NavItems = ({

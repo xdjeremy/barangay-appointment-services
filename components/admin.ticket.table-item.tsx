@@ -1,33 +1,32 @@
 import React, { FC, useState } from "react";
-import { DocumentRequestsResponse, UsersResponse } from "@/types";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { pocketBase } from "@/utils";
+import { TicketsResponse } from "@/types";
 import toast from "react-hot-toast";
-
-type TExpand = {
-  user: UsersResponse;
-};
+import { pocketBase } from "@/utils";
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 
 interface Props {
-  data: DocumentRequestsResponse<TExpand>;
+  data: TicketsResponse;
 }
 
-const AdminTableItems: FC<Props> = ({ data }) => {
+const AdminTicketTableItem: FC<Props> = ({ data }) => {
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const router = useRouter();
 
   const deleteRequest = async () => {
     try {
-      await pocketBase.collection("document_requests").update(data.id, {
+      await pocketBase.collection("tickets").update(data.id, {
         active: false,
       });
 
       toast.success("Request deleted successfully");
       setShowDelete(false);
-      return;
     } catch (err: any) {
-      throw new Error(err.data.message);
+      toast.error(err.data.message);
     }
   };
+
   return (
     <>
       {showDelete && (
@@ -54,23 +53,25 @@ const AdminTableItems: FC<Props> = ({ data }) => {
           </div>
         </div>
       )}
-      <tr>
-        <td className={"border-2 border-black text-center"}>
-          {data.document_type}
-        </td>
-        <td className={"border-2 border-black text-center"}>
-          {data.expand?.user.name}
-        </td>
+      <tr key={data.id}>
         <td className={"border-2 border-black text-center"}>{data.email}</td>
+        <td className={"border-2 border-black text-center"}>{data.subject}</td>
+        <td className={"border-2 border-black text-center"}>{data.body}</td>
         <td className={"border-2 border-black text-center"}>
-          <XMarkIcon
-            onClick={() => setShowDelete(true)}
-            className={"mx-auto h-6 w-6 cursor-pointer text-red-500"}
-          />
+          <span className={"flex flex-row"}>
+            <XMarkIcon
+              onClick={() => setShowDelete(true)}
+              className={"mx-auto h-6 w-6 cursor-pointer text-red-500"}
+            />
+            <ChatBubbleLeftIcon
+              className={"mx-auto h-6 w-6 cursor-pointer text-blue-500"}
+              onClick={() => router.push(`/admin-ticket/${data.id}`)}
+            />
+          </span>
         </td>
       </tr>
     </>
   );
 };
 
-export default AdminTableItems;
+export default AdminTicketTableItem;

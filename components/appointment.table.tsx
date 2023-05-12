@@ -13,6 +13,7 @@ const fetcher = async (table: string) => {
       .collection(table)
       .getList<AppointmentsResponse<TExpand>>(1, 30, {
         sort: "-created",
+        filter: "active = true",
         expand: "user",
       });
   } catch (err: any) {
