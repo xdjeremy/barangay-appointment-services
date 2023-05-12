@@ -5,6 +5,7 @@
 export enum Collections {
 	Appointments = "appointments",
 	DocumentRequests = "document_requests",
+	TicketReplies = "ticket_replies",
 	Tickets = "tickets",
 	Users = "users",
 }
@@ -60,6 +61,16 @@ export type DocumentRequestsRecord = {
 	active?: boolean
 }
 
+export enum TicketRepliesRoleOptions {
+	"user" = "user",
+	"admin" = "admin",
+}
+export type TicketRepliesRecord = {
+	ticket: RecordIdString
+	message?: string
+	role: TicketRepliesRoleOptions
+}
+
 export type TicketsRecord = {
 	user: RecordIdString
 	email: string
@@ -80,6 +91,7 @@ export type UsersRecord = {
 // Response types include system fields and match responses from the PocketBase API
 export type AppointmentsResponse<Texpand = unknown> = Required<AppointmentsRecord> & BaseSystemFields<Texpand>
 export type DocumentRequestsResponse<Texpand = unknown> = Required<DocumentRequestsRecord> & BaseSystemFields<Texpand>
+export type TicketRepliesResponse<Texpand = unknown> = Required<TicketRepliesRecord> & BaseSystemFields<Texpand>
 export type TicketsResponse<Texpand = unknown> = Required<TicketsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse = Required<UsersRecord> & AuthSystemFields
 
@@ -88,6 +100,7 @@ export type UsersResponse = Required<UsersRecord> & AuthSystemFields
 export type CollectionRecords = {
 	appointments: AppointmentsRecord
 	document_requests: DocumentRequestsRecord
+	ticket_replies: TicketRepliesRecord
 	tickets: TicketsRecord
 	users: UsersRecord
 }
@@ -95,6 +108,7 @@ export type CollectionRecords = {
 export type CollectionResponses = {
 	appointments: AppointmentsResponse
 	document_requests: DocumentRequestsResponse
+	ticket_replies: TicketRepliesResponse
 	tickets: TicketsResponse
 	users: UsersResponse
 }
