@@ -25,24 +25,28 @@ const navLinks = [
   },
   {
     title: "Directory",
-    href: "directory",
+    href: "/directory",
   },
   {
     title: "Archive",
-    href: "archive",
+    href: "/archive",
   },
   {
     title: "Calendar",
-    href: "calendar",
+    href: "/calendar",
   },
   {
     title: "Appointments",
-    href: "appointments",
+    href: "/appointments",
   },
   {
     title: "Submit a Ticket",
-    href: "ticket",
+    href: "/ticket",
   },
+  {
+    title: "Ticket List",
+    href: "/ticket/list",
+  }
 ];
 
 const NavItem = ({

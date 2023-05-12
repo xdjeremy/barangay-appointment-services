@@ -3,6 +3,8 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { TicketsResponse } from "@/types";
 import toast from "react-hot-toast";
 import { pocketBase } from "@/utils";
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 
 interface Props {
   data: TicketsResponse;
@@ -10,6 +12,7 @@ interface Props {
 
 const AdminTicketTableItem: FC<Props> = ({ data }) => {
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const router = useRouter();
 
   const deleteRequest = async () => {
     try {
@@ -55,10 +58,16 @@ const AdminTicketTableItem: FC<Props> = ({ data }) => {
         <td className={"border-2 border-black text-center"}>{data.subject}</td>
         <td className={"border-2 border-black text-center"}>{data.body}</td>
         <td className={"border-2 border-black text-center"}>
-          <XMarkIcon
-            onClick={() => setShowDelete(true)}
-            className={"mx-auto h-6 w-6 cursor-pointer text-red-500"}
-          />
+          <span className={"flex flex-row"}>
+            <XMarkIcon
+              onClick={() => setShowDelete(true)}
+              className={"mx-auto h-6 w-6 cursor-pointer text-red-500"}
+            />
+            <ChatBubbleLeftIcon
+              className={"mx-auto h-6 w-6 cursor-pointer text-blue-500"}
+              onClick={() => router.push(`/admin-ticket/${data.id}`)}
+            />
+          </span>
         </td>
       </tr>
     </>
