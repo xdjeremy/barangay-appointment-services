@@ -83,7 +83,6 @@ const Layout: FC<Props> = ({ children, activePage }) => {
                     <ConfirmButton/>
                     <CancelButton clickHandler={() => setOpenLogout(false)}/>
                   </div>
-
                 </div>
             )
         }
